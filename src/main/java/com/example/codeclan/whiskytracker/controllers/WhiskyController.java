@@ -22,14 +22,14 @@ public class WhiskyController {
     public ResponseEntity<List<Whisky>> getAllWhiskies(
             @RequestParam(name = "year", required = false) Integer year,
             @RequestParam(name = "age", required = false) Integer age,
-            @RequestParam(name = "distillery", required = false) Distillery distillery
+            @RequestParam(name = "distillery", required = false) Long distilleryId
     ){
         if (year != null){
             return new ResponseEntity<>(whiskyRepository.findByYear(year), HttpStatus.OK);
         }
 
-        if (age != null && distillery != null){
-            return new ResponseEntity<>(whiskyRepository.findByAgeAndDistillery(age, distillery), HttpStatus.OK);
+        if (age != null && distilleryId != null){
+            return new ResponseEntity<>(whiskyRepository.findByAgeAndDistilleryId(age, distilleryId), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(whiskyRepository.findAll(), HttpStatus.OK);
