@@ -8,6 +8,10 @@ import javax.persistence.*;
 @Table(name = "whiskies")
 public class Whisky {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column
     private String name;
 
@@ -22,7 +26,7 @@ public class Whisky {
     @Column
     private int age;
 
-    public Whisky(String name, Distillery distillery, int year, int age){
+    public Whisky(String name, int year, int age, Distillery distillery){
         this.name = name;
         this.distillery = distillery;
         this.year = year;
@@ -61,5 +65,13 @@ public class Whisky {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
