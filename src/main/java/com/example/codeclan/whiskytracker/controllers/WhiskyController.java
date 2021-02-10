@@ -1,5 +1,6 @@
 package com.example.codeclan.whiskytracker.controllers;
 
+import com.example.codeclan.whiskytracker.models.Distillery;
 import com.example.codeclan.whiskytracker.models.Whisky;
 import com.example.codeclan.whiskytracker.repositories.WhiskyRepository;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,16 @@ public class WhiskyController {
 
     @GetMapping(value = "/whiskies")
     public ResponseEntity<List<Whisky>> getAllWhiskies(
-            @RequestParam(name = "year", required = false) Integer year
+            @RequestParam(name = "year", required = false) Integer year,
+            @RequestParam(name = "age", required = false) Integer age,
+            @RequestParam(name = "distillery", required = false) Distillery distillery
     ){
         if (year != null){
             return new ResponseEntity<>(whiskyRepository.findByYear(year), HttpStatus.OK);
+        }
+
+        if (age != null && distillery != null){
+            return new ResponseEntity<>(whiskyRepository.findByAgeAndDistillery(age, distillery), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(whiskyRepository.findAll(), HttpStatus.OK);
